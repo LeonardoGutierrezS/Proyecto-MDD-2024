@@ -5,10 +5,10 @@
  * @param {Function} next - Función para continuar con la siguiente función de middleware
  */
 
-// genesis........................................................................
 "use strict";
 import User from "../models/user.model.js";
 
+// Middleware para verificar si el usuario está autenticado
 async function isAuthenticated(req, res, next) {
   try {
     console.log("=== Debug Info ===");
@@ -41,8 +41,7 @@ async function isAuthenticated(req, res, next) {
 
 export { isAuthenticated };
 
-
-// genesis......................................
+// Middleware para verificar si el usuario es administrador
 async function isAdmin(req, res, next) {
   try {
     // Verifica si hay un usuario autenticado en la sesión
