@@ -4,6 +4,45 @@
  * @param {Object} res - Objeto de respuesta
  * @param {Function} next - Función para continuar con la siguiente función de middleware
  */
+
+// genesis........................................................................
+"use strict";
+import User from "../models/user.model.js";
+
+async function isAuthenticated(req, res, next) {
+  try {
+    console.log("=== Debug Info ===");
+    console.log("Cookies: ", req.cookies);
+    console.log("Session: ", req.session);
+
+    if (!req.session.user) {
+      console.log("No estás autenticado - Session User:", req.session.user);
+      return res.status(401).json({ message: "No estás autenticado" });
+    }
+    
+    const userId = req.session.user._id;
+    console.log("User ID from session: ", userId);
+
+    const user = await User.findById(userId).exec();
+    console.log("Authenticated User: ", user);
+    console.log("User Status: ", user ? user.status : null);
+
+    if (!user || user.status !== 'aceptado') {
+      console.log("No tienes permisos para realizar esta acción - User Status:", user ? user.status : null);
+      return res.status(403).json({ message: "No tienes permisos para realizar esta acción" });
+    }
+    
+    next();
+  } catch (error) {
+    console.log("Error en auth.middleware.js -> isAuthenticated(): ", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
+  }
+}
+
+export { isAuthenticated };
+
+
+// genesis......................................
 async function isAdmin(req, res, next) {
   try {
     // Verifica si hay un usuario autenticado en la sesión

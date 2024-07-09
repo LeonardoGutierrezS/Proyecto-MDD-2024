@@ -49,10 +49,9 @@ export async function getUsers(req, res) {
 
 export async function updateUser(req, res) {
     try {
-        const rutUser = req.query.rut;
+        const { rut, status } = req.body; 
         const updatedData = req.body;
-
-        if (!rutUser) {
+        if (!rut) {
             res.status(400).json({
                 message: "El parámetro 'rut' es requerido.",
                 data: null
@@ -79,7 +78,7 @@ export async function updateUser(req, res) {
         if (updatedData.password) {
             updatedData.password = await User.encryptPassword(updatedData.password);
         }
-        const userMod = await User.findOneAndUpdate({ rut: rutUser }, updatedData, { new: true });
+        const userMod = await User.findOneAndUpdate({ rut }, {$set: {status: status} }, { new: true });
 
         if (!userMod) {
             res.status(404).json({

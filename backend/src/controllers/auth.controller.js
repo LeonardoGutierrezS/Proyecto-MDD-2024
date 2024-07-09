@@ -7,6 +7,7 @@ import User from "../models/user.model.js";
 export async function login(req, res) {
     try {
         const user = req.body;
+        const { email, password } = req.body;//--------genesis..........
 
         const userFound = await User.findOne({ email: user.email })
             .populate("roles")
@@ -31,10 +32,12 @@ export async function login(req, res) {
         }
 
         req.session.user = {
+            _id: userFound._id.toString(),//nuevo.............
             username: userFound.username,
             rut: userFound.rut,
             email: userFound.email,
-            rolName: userFound.roles[0].name
+            rolName: userFound.roles[0].name,
+            accepted: userFound.accepted
         };
 
         res.status(200).json({
@@ -56,7 +59,14 @@ export async function register(req, res) {
 
         if (existingUser) {
             return res.status(400).json({ message: "El correo electrónico ya está registrado." });
+        }//-------------genesis........................
+
+        // Verificar si el rut ya está registrado
+        const existingRut = await User.findOne({ rut: userData.rut});
+        if (existingRut) {
+        return res.status(400).json({ message: "El RUT ya está registrado." });
         }
+        //-------------------genesis...............
 
 
         const userRole = await Role.findOne({ name: 'usuario' });

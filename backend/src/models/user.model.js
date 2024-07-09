@@ -26,6 +26,12 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    status: {
+      type: String,
+      enum: ['pendiente', 'aceptado', 'rechazado'],
+      default: 'pendiente'
+    
+    },
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,
