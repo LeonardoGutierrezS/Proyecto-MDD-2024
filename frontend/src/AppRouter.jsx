@@ -7,10 +7,17 @@ import Error404 from './pages/Error404';
 import EditUser from './pages/EditUser';
 import ProtectedRoute from './components/ProtectedRoute';
 import Users from './pages/Users';
+import ListProducts from './pages/ListProducts';
+import Navbar from './components/Navbar';
+import Formproducts from './pages/Formproducts';
+import Prueba from './pages/Prueba';
 
 const AppRouter = () => {
   return (
+    <>
+    <Navbar />
     <Routes>
+
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       
@@ -32,6 +39,30 @@ const AppRouter = () => {
         } 
       />
       <Route 
+        path="/products" 
+        element={
+          <ProtectedRoute >
+            <ListProducts />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/createproducts" 
+        element={
+          <ProtectedRoute allowedRoles={['usuario']}>
+            <Formproducts />
+          </ProtectedRoute>
+        } 
+      />
+      <Route
+        path="/prueba"
+        element={
+          <ProtectedRoute>
+            <Prueba/>
+          </ProtectedRoute>
+        }
+      />
+      <Route 
         path="/profile" 
         element={
           <ProtectedRoute>
@@ -50,7 +81,9 @@ const AppRouter = () => {
       
       <Route path="*" element={<Error404 />} />
     </Routes>
+    </>
   );
 };
+
 
 export default AppRouter;

@@ -387,3 +387,8 @@ body {
 	width: 100%;
 	max-width: 500px;
   }
+  .success-message {
+	color: green;
+	font-weight: bold;
+	margin-bottom: 10px;
+  }

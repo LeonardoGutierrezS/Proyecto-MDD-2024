@@ -1,9 +1,11 @@
-import Navbar from '../components/Navbar'
+
 
 const Home = () => {
   return (
     <>
-      <Navbar />
+      <h1>.</h1>
+      <h1>Inicio</h1>
+      <p>Bienvenido a la página de Inicio</p>
     </>
   )
 }

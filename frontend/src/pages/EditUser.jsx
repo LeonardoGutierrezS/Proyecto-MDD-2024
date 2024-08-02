@@ -31,7 +31,7 @@ const EditUser = () => {
                     {
 						label: "Nombre de usuario",
                         name: "username",
-                        placeholder: user.Nombre || "Didudo",
+                        placeholder: user.Nombre || "Nombre de usuario",
                         type: "text",
                     },
 					{

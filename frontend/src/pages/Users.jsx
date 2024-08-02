@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
 import Table from '../components/Table';
 import { getUsers, deleteUser } from '../services/user.service';
 import searchIcon from '../assets/searchIcon.svg';
@@ -56,7 +55,6 @@ const Users = () => {
 
   return (
     <>
-      <Navbar />
       <div className='main-container'>
         <div className='table-container'>
           <div className='search-container'>
