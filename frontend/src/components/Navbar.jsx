@@ -43,9 +43,7 @@ const Navbar = () => {
                 <li className={location.pathname === "/crearproductos" ? "active" : ""}>
                     <NavLink to="/createproducts">Crear Productos</NavLink>
                 </li>
-                <li className={location.pathname === "/prueba" ? "active" : ""}>
-                    <NavLink to="/prueba">Pruebaaaaa</NavLink>
-                </li>
+               
                 <li className={location.pathname === "/" ? "active" : ""}>
                     <NavLink to="/" onClick={logoutSubmit}>Cerrar</NavLink>
                 </li>

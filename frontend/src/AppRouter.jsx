@@ -10,7 +10,10 @@ import Users from './pages/Users';
 import ListProducts from './pages/ListProducts';
 import Navbar from './components/Navbar';
 import Formproducts from './pages/Formproducts';
-import Prueba from './pages/Prueba';
+import FormEvents from './pages/ForEvents';
+import EditEvent from './pages/EditEvent';
+import EventList from './pages/EventList';
+
 
 const AppRouter = () => {
   return (
@@ -54,14 +57,7 @@ const AppRouter = () => {
           </ProtectedRoute>
         } 
       />
-      <Route
-        path="/prueba"
-        element={
-          <ProtectedRoute>
-            <Prueba/>
-          </ProtectedRoute>
-        }
-      />
+      
       <Route 
         path="/profile" 
         element={
@@ -75,6 +71,30 @@ const AppRouter = () => {
         element={
           <ProtectedRoute>
             <EditUser />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/events/create" 
+        element={
+          <ProtectedRoute>
+            <FormEvents />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/events/edit/:id" 
+        element={
+          <ProtectedRoute>
+            <EditEvent />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/events" 
+        element={
+          <ProtectedRoute>
+            <EventList />
           </ProtectedRoute>
         } 
       />
