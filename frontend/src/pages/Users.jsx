@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 import Table from '../components/Table';
 import { getUsers, deleteUser } from '../services/user.service';
 import searchIcon from '../assets/searchIcon.svg';
@@ -9,7 +10,7 @@ const Users = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
-  const columns = ['Nombre', 'Rut', 'Correo', 'Rol', 'Acción'];
+  const columns = ['Nombre', 'Rut', 'Correo', 'Rol','Estado', 'Acción'];
 
   const dataUser = async () => {
     try {
@@ -18,7 +19,8 @@ const Users = () => {
         Nombre: user.username,
         Rut: user.rut,
         Correo: user.email,
-        Rol: user.roles[0].name
+        Rol: user.roles[0].name,
+        Estado: user.status
       }));
       setUsers(formattedData);
     } catch (error) {
@@ -55,6 +57,7 @@ const Users = () => {
 
   return (
     <>
+      <Navbar />
       <div className='main-container'>
         <div className='table-container'>
           <div className='search-container'>

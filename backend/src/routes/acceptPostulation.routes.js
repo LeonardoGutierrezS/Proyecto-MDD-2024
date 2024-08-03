@@ -8,9 +8,9 @@ const router = Router();
 router.get("/",isAdmin, getPendingUsers);
 
 // Ruta para aceptar usuarios pendientes
-router.patch("/", isAdmin, acceptUser);
+router.put("/:id", isAdmin, acceptUser);
 
 // Ruta para eliminar usuarios pendientes o aceptados
-router.delete("/", isAdmin, deleteUser);
+router.delete("/:id", isAdmin, deleteUser);
 
 export default router;

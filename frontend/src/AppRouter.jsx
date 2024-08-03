@@ -39,6 +39,14 @@ const AppRouter = () => {
         } 
       />
       <Route 
+        path="/accept" 
+        element={
+          <ProtectedRoute allowedRoles={['administrador']}>
+            <AcceptUsers />
+          </ProtectedRoute>
+        }
+      />
+      <Route 
         path="/products" 
         element={
           <ProtectedRoute >

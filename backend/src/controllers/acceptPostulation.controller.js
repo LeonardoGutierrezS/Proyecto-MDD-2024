@@ -4,7 +4,7 @@ import User from "../models/user.model.js";
 // Obtener usuarios con estado pendiente
 export const getPendingUsers = async (req, res) => {
     try {
-      const pendingUsers = await User.find({ status: 'pendiente' }, 'username rut');
+      const pendingUsers = await User.find({ status: 'pendiente' }, 'username rut email roles status');
       if (pendingUsers.length === 0) {
         return res.status(404).json({ message: "No hay usuarios pendientes" });
       }
@@ -18,28 +18,28 @@ export const getPendingUsers = async (req, res) => {
 
 // Modificar estado del usuario a aceptado
 export const acceptUser = async (req, res) => {
-    try {
-      const { rut } = req.body;
-      const user = await User.findOne({ rut, status: 'pendiente' });
-  
-      if (!user) {
-        return res.status(404).json({ message: "Usuario no encontrado o no está pendiente" });
-      }
-  
-      user.status = 'aceptado';
-      await user.save();
-      res.status(200).json({ message: "Usuario aceptado exitosamente", data: user });
-    } catch (error) {
-      console.error("Error en acceptPostulation.controller.js -> acceptUser(): ", error);
-      res.status(500).json({ message: "Error interno del servidor" });
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+
+    if (!user || user.status !== 'pendiente') {
+      return res.status(404).json({ message: "Usuario no encontrado o no está pendiente" });
     }
-  };
-  
+
+    user.status = 'aceptado';
+    await user.save();
+    res.status(200).json({ message: "Usuario aceptado exitosamente", data: user });
+  } catch (error) {
+    console.error("Error en acceptPostulation.controller.js -> acceptUser(): ", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+};
+
   // Eliminar usuario pendiente o aceptado
   export const deleteUser = async (req, res) => {
     try {
-      const { rut } = req.body;
-      const user = await User.findOneAndDelete({ rut, status: { $in: ['pendiente', 'aceptado'] } });
+      const { id } = req.params;
+      const user = await User.findByIdAndDelete({ _id: id, status: { $in: ['pendiente', 'aceptado'] } });
   
       if (!user) {
         return res.status(404).json({ message: "Usuario no encontrado" });

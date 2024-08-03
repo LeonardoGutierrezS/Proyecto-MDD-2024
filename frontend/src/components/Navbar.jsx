@@ -34,6 +34,11 @@ const Navbar = () => {
                         <NavLink to="/users">Usuarios</NavLink>
                     </li>
                 )}
+                {userRole === 'administrador' && (
+                <li className={location.pathname === "/accept" ? "active" : ""}>
+                    <NavLink to="/accept">Solicitudes de usuarios</NavLink>
+                </li>
+                )}
                 <li className={location.pathname === "/perfil" ? "active" : ""}>
                     <NavLink to="/profile">Perfil</NavLink>
                 </li>
